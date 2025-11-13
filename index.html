@@ -116,8 +116,18 @@
     }
     @media (max-width:520px){
       .card{padding:1.4rem}
-      .countdown{flex-wrap:wrap}
-      .countdown .unit{min-width:60px}
+      .countdown{flex-wrap:nowrap;overflow-x:unset;}
+      .countdown .unit{
+        min-width:44px;
+        padding:0.5rem 0.5rem;
+        font-size:0.95rem;
+      }
+      .countdown .num{
+        font-size:1.05rem;
+      }
+      .countdown .label{
+        font-size:0.65rem;
+      }
       .collage{gap:10px;}
     }
 
