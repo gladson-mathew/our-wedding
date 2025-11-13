@@ -122,6 +122,17 @@
     }
 
     footer{margin-top:1.7rem;font-size:.95rem;color:var(--accent);opacity:.92;letter-spacing:0.2px;}
+
+    /* Modal for image zoom */
+    .img-modal-bg {
+      position:fixed;inset:0;z-index:9999;background:rgba(40,30,20,0.65);display:flex;align-items:center;justify-content:center;animation:fadeIn .2s;
+    }
+    .img-modal-bg img {
+      max-width:96vw;max-height:90vh;border-radius:18px;box-shadow:0 8px 32px #0008;background:#fff;
+      animation:zoomIn .2s;
+    }
+    @keyframes fadeIn {from{opacity:0} to{opacity:1}}
+    @keyframes zoomIn {from{transform:scale(.8)} to{transform:scale(1)}}
   </style>
 </head>
 <body>
@@ -205,8 +216,29 @@
         img.style.display = 'none';
         img.parentElement.style.background = 'linear-gradient(135deg,var(--pastel1),var(--pastel2));';
         img.parentElement.innerHTML += '<div style="padding:1.4rem;color:#bfa5a0;font-weight:600">Add photo (photo1.jpg...)</div>';
-      })
-    })
+      });
+      // Zoom modal for images
+      img.addEventListener('click', function(e) {
+        if(img.parentElement.classList.contains('map-area')) return;
+        // Create modal
+        const modalBg = document.createElement('div');
+        modalBg.className = 'img-modal-bg';
+        const modalImg = document.createElement('img');
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+        modalBg.appendChild(modalImg);
+        document.body.appendChild(modalBg);
+        // Close on click/tap
+        modalBg.addEventListener('click', () => {
+          modalBg.remove();
+        });
+        // Prevent scroll on modal open
+        document.body.style.overflow = 'hidden';
+        modalBg.addEventListener('transitionend', () => {
+          document.body.style.overflow = '';
+        });
+      });
+    });
   </script>
 
   <!--
@@ -220,6 +252,4 @@
     - Update the "weddingDate" in the script if the ceremony has a specific time (include timezone if desired).
   -->
 </body>
-
 </html>
-
