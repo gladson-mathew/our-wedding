@@ -228,13 +228,11 @@
         modalImg.alt = img.alt;
         modalBg.appendChild(modalImg);
         document.body.appendChild(modalBg);
+        // Prevent scroll on modal open
+        document.body.style.overflow = 'hidden';
         // Close on click/tap
         modalBg.addEventListener('click', () => {
           modalBg.remove();
-        });
-        // Prevent scroll on modal open
-        document.body.style.overflow = 'hidden';
-        modalBg.addEventListener('transitionend', () => {
           document.body.style.overflow = '';
         });
       });
